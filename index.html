@@ -1,478 +1,819 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio | Sabor Caseiro</title>
+    <title>SaborExpress - Delivery de Comida</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Reset e estilos base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #F56A3F;
-            --secondary: #4E9F3D;
-            --accent: #FFC107;
-            --light: #FFF9F0;
-            --dark: #333333;
-            --transition: all 0.3s ease;
-        }
-
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
+            background-color: #f9f9f9;
+            color: #333;
             line-height: 1.6;
-            padding: 20px;
         }
-
+        
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 0 15px;
         }
-
+        
+        /* Header e Navegação */
         header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background-color: #ff6b35;
             color: white;
-            padding: 30px;
-            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .menu-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            padding: 30px;
-        }
-
-        @media (min-width: 768px) {
-            .menu-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .menu-section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            color: var(--primary);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px dashed var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .menu-item {
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffeae3;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dotted #ddd;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-
-        .item-info {
-            flex: 1;
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-
-        .item-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--dark);
+        
+        .btn {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-
-        .item-desc {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
+        
+        .btn:hover {
+            background: #e85a2a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
-        .item-price {
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: 1.1rem;
+        
+        /* Seção de Serviços */
+        .services {
+            padding: 80px 0;
+            background-color: white;
         }
-
-        .services-section {
-            background: var(--light);
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 20px;
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
         }
-
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
-
+        
         .service-card {
-            background: white;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
             padding: 20px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .service-content p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+        
+        /* Seção de Pratos Populares */
+        .dishes {
+            padding: 80px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .dish-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dish-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .dish-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .dish-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .dish-card:hover .dish-img img {
+            transform: scale(1.1);
+        }
+        
+        .dish-content {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .dish-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .dish-content p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        /* Seção de App */
+        .app {
+            padding: 80px 0;
+            background: linear-gradient(to right, #ff6b35, #ff8e35);
+            color: white;
+        }
+        
+        .app-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .app-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .app-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .app-content p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .app-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .app-btn {
+            display: flex;
+            align-items: center;
+            background: white;
+            color: #ff6b35;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .app-btn:hover {
+            background: #f5f5f5;
+            transform: translateY(-3px);
+        }
+        
+        .app-btn i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .app-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .app-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Seção de Depoimentos */
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            background: #f9f9f9;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: var(--transition);
+            display: none;
         }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 1s;
         }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .testimonial img {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #ff6b35;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .testimonial .client-name {
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        .testimonial-nav {
             display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background: #ff6b35;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff6b35;
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #bbb;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
+            width: 40px;
+            height: 40px;
+            background: #444;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #ff6b35;
             color: white;
-            font-size: 1.5rem;
         }
-
-        .service-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-
-        .service-desc {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        footer {
-            background: var(--dark);
-            color: white;
+        
+        .footer-bottom {
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
         }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            color: var(--accent);
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 20px;
-            margin-left: 8px;
-            font-weight: 600;
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                flex-direction: column;
+                background: #ff6b35;
+                width: 100%;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .app-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .app-buttons {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
-                Sabor Caseiro
-            </div>
-            <p class="tagline">Comida feita com carinho para você</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>(11) 99999-9999</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Seg a Sáb: 11h às 22h | Dom: 11h às 17h</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="menu-container">
-            <div class="column">
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-utensil-spoon"></i>
-                        Pratos Principais
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Frango Grelhado com Legumes</div>
-                            <div class="item-desc">Peito de frango grelhado com mix de legumes sauté</div>
-                        </div>
-                        <div class="item-price">R$ 32,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Strogonoff de Carne</div>
-                            <div class="item-desc">Clássico strogonoff de carne com arroz e batata palha</div>
-                        </div>
-                        <div class="item-price">R$ 36,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Risoto de Camarão</div>
-                            <div class="item-desc">Risoto cremoso com camarões frescos e ervas</div>
-                        </div>
-                        <div class="item-price">R$ 45,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Lasanha à Bolonhesa</div>
-                            <div class="item-desc">Lasanha tradicional com molho bolonhesa e queijos</div>
-                        </div>
-                        <div class="item-price">R$ 38,90</div>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-carrot"></i>
-                        Saladas
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Salada Caesar</div>
-                            <div class="item-desc">Alface romana, croutons, parmesão e molho caesar</div>
-                        </div>
-                        <div class="item-price">R$ 24,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Salada Tropical</div>
-                            <div class="item-desc">Mix de folhas, manga, queijo branco e nozes</div>
-                        </div>
-                        <div class="item-price">R$ 26,90</div>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-mug-hot"></i>
-                        Bebidas
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Sucos Naturais (500ml)</div>
-                            <div class="item-desc">Laranja, limão, abacaxi, maracujá ou morango</div>
-                        </div>
-                        <div class="item-price">R$ 12,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Refrigerantes (lata)</div>
-                            <div class="item-desc">Coca-Cola, Guaraná, Fanta ou Sprite</div>
-                        </div>
-                        <div class="item-price">R$ 7,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Água (500ml)</div>
-                            <div class="item-desc">Com ou sem gás</div>
-                        </div>
-                        <div class="item-price">R$ 5,90</div>
-                    </div>
-                </div>
+                <span>SaborExpress</span>
             </div>
             
-            <div class="column">
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-hamburger"></i>
-                        Lanches
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Hambúrguer Artesanal</div>
-                            <div class="item-desc">Pão brioche, blend 180g, queijo, bacon e molho especial</div>
-                        </div>
-                        <div class="item-price">R$ 28,90</div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#dishes">Pratos</a></li>
+                    <li><a href="#app">App</a></li>
+                    <li><a href="#testimonials">Avaliações</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Sabores que entregam felicidade</h1>
+            <p>Desfrute dos melhores pratos da cidade no conforto da sua casa. Entregas rápidas e sabor inesquecível!</p>
+            <a href="#dishes" class="btn">Fazer Pedido</a>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Serviços</h2>
+                <p>Oferecemos uma variedade de serviços para satisfazer seu paladar e conveniência</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Delivery Rápido">
                     </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Sanduíche Natural</div>
-                            <div class="item-desc">Pão integral, frango desfiado, cream cheese e vegetais</div>
-                        </div>
-                        <div class="item-price">R$ 18,90</div>
-                    </div>
-                </div>
-                
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-ice-cream"></i>
-                        Sobremesas
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Brownie com Sorvete</div>
-                            <div class="item-desc">Brownie de chocolate com sorvete de creme e calda</div>
-                        </div>
-                        <div class="item-price">R$ 19,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Mousse de Maracujá</div>
-                            <div class="item-desc">Mousse leve de maracujá com calda de frutas</div>
-                        </div>
-                        <div class="item-price">R$ 15,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Petit Gateau</div>
-                            <div class="item-desc">Bolo de chocolate com reino cremoso e sorvete</div>
-                        </div>
-                        <div class="item-price">R$ 22,90</div>
+                    <div class="service-content">
+                        <h3>Delivery Rápido</h3>
+                        <p>Entregas em até 30 minutos garantidas ou seu dinheiro de volta. Atendemos toda a região metropolitana.</p>
+                        <a href="#" class="btn">Saiba Mais</a>
                     </div>
                 </div>
                 
-                <div class="menu-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-pizza-slice"></i>
-                        Massas
-                    </h2>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Spaghetti à Carbonara</div>
-                            <div class="item-desc">Massa tradicional com molho carbonara autêntico</div>
-                        </div>
-                        <div class="item-price">R$ 34,90</div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Comida Premium">
                     </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Penne ao Molho Pesto</div>
-                            <div class="item-desc">Penne com molho pesto tradicional e tomate seco</div>
-                        </div>
-                        <div class="item-price">R$ 32,90</div>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-title">Nhoque à Bolonhesa</div>
-                            <div class="item-desc">Nhoque de batata com molho bolonhesa</div>
-                        </div>
-                        <div class="item-price">R$ 36,90</div>
+                    <div class="service-content">
+                        <h3>Comida Premium</h3>
+                        <p>Pratos preparados por chefs renomados com ingredientes selecionados da mais alta qualidade.</p>
+                        <a href="#" class="btn">Saiba Mais</a>
                     </div>
                 </div>
                 
-                <div class="services-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-concierge-bell"></i>
-                        Nossos Serviços
-                    </h2>
-                    
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-truck"></i>
-                            </div>
-                            <h3 class="service-title">Delivery</h3>
-                            <p class="service-desc">Entregamos em toda a região</p>
-                        </div>
-                        
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <h3 class="service-title">Marmitas</h3>
-                            <p class="service-desc">Refeições balanceadas para o dia a dia</p>
-                        </div>
-                        
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-birthday-cake"></i>
-                            </div>
-                            <h3 class="service-title">Eventos</h3>
-                            <p class="service-desc">Buffet para festas e comemorações</p>
-                        </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Retirada no Local">
+                    </div>
+                    <div class="service-content">
+                        <h3>Retirada no Local</h3>
+                        <p>Prefere retirar pessoalmente? Temos um ambiente aconchegante e sistema de retirada rápida.</p>
+                        <a href="#" class="btn">Saiba Mais</a>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <footer>
-            <p>Aceitamos cartões de crédito e débito</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
+    </section>
+
+    <!-- Pratos Section -->
+    <section class="dishes" id="dishes">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pratos Populares</h2>
+                <p>Os queridinhos dos nossos clientes. Experimente essas delícias!</p>
             </div>
-            <p>&copy; 2023 Sabor Caseiro - Todos os direitos reservados</p>
-        </footer>
-    </div>
+            
+            <div class="dishes-grid">
+                <div class="dish-card">
+                    <div class="dish-img">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hambúrguer Gourmet">
+                    </div>
+                    <div class="dish-content">
+                        <h3>Hambúrguer Gourmet</h3>
+                        <p>Pão artesanal, blend 180g, queijo cheddar, bacon e molho especial.</p>
+                        <div class="price">R$ 29,90</div>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+                
+                <div class="dish-card">
+                    <div class="dish-img">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pizza Margherita">
+                    </div>
+                    <div class="dish-content">
+                        <h3>Pizza Margherita</h3>
+                        <p>Massa fina, molho de tomate, muçarela de búfala, manjericão fresco.</p>
+                        <div class="price">R$ 39,90</div>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+                
+                <div class="dish-card">
+                    <div class="dish-img">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salada Caesar">
+                    </div>
+                    <div class="dish-content">
+                        <h3>Salada Caesar</h3>
+                        <p>Alface romana, croutons, parmesão e nosso famoso molho caesar.</p>
+                        <div class="price">R$ 22,90</div>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+                
+                <div class="dish-card">
+                    <div class="dish-img">
+                        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sushi Combinado">
+                    </div>
+                    <div class="dish-content">
+                        <h3>Sushi Combinado</h3>
+                        <p>Variedade de 30 peças com os melhores cortes de salmão e atum.</p>
+                        <div class="price">R$ 59,90</div>
+                        <a href="#" class="btn">Pedir Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section class="app" id="app">
+        <div class="container app-container">
+            <div class="app-content">
+                <h2>Baixe nosso app</h2>
+                <p>Faça pedidos, acompanhe em tempo real e ganhe descontos exclusivos com nosso programa de fidelidade.</p>
+                <div class="app-buttons">
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-google-play"></i>
+                        <span>Google Play</span>
+                    </a>
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-apple"></i>
+                        <span>App Store</span>
+                    </a>
+                </div>
+            </div>
+            <div class="app-image">
+                <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="App SaborExpress">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Avaliações de Clientes</h2>
+                <p>Veja o que nossos clientes estão falando sobre nossos serviços</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial active">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Cliente 1">
+                    <p>"Já experimentei vários delivery, mas o SaborExpress é incomparável! Comida deliciosa e entrega super rápida."</p>
+                    <div class="client-name">Maria Silva</div>
+                </div>
+                
+                <div class="testimonial">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente 2">
+                    <p>"Adoro a variedade de pratos. Sempre peço nas reuniões de família e todo mundo ama. Recomendo!"</p>
+                    <div class="client-name">João Santos</div>
+                </div>
+                
+                <div class="testimonial">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente 3">
+                    <p>"O aplicativo é muito intuitivo e prático. Consigo fazer meus pedidos em poucos cliques e acompanhar em tempo real."</p>
+                    <div class="client-name">Ana Costa</div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <div class="testimonial-dot active" data-index="0"></div>
+                    <div class="testimonial-dot" data-index="1"></div>
+                    <div class="testimonial-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>SaborExpress</h3>
+                    <p>Entregando sabor e qualidade desde 2015. Nossa missão é proporcionar experiências gastronômicas memoráveis no conforto da sua casa.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#dishes">Pratos</a></li>
+                        <li><a href="#app">App</a></li>
+                        <li><a href="#testimonials">Avaliações</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234, Centro</p>
+                    <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+                    <p><i class="fas fa-envelope"></i> contato@saborexpress.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Horário de Funcionamento</h3>
+                    <p>Segunda a Sexta: 11h às 23h</p>
+                    <p>Sábado e Domingo: 11h à 00h</p>
+                    <p>Feriados: 11h à 00h</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 SaborExpress - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile Toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('show');
+        });
+        
+        // Testimonials Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showTestimonial(index);
+            });
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('navMenu').classList.remove('show');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
