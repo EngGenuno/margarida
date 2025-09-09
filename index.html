@@ -1,819 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaborExpress - Delivery de Comida</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Reset e estilos base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header e Navegação */
-        header {
-            background-color: #ff6b35;
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: #ffeae3;
-        }
-        
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-            margin-top: 60px;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #ff6b35;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background: #e85a2a;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Seção de Serviços */
-        .services {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #777;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .service-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .service-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .service-card:hover .service-img img {
-            transform: scale(1.1);
-        }
-        
-        .service-content {
-            padding: 20px;
-        }
-        
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .service-content p {
-            color: #777;
-            margin-bottom: 20px;
-        }
-        
-        /* Seção de Pratos Populares */
-        .dishes {
-            padding: 80px 0;
-            background-color: #f5f5f5;
-        }
-        
-        .dishes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        
-        .dish-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .dish-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .dish-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .dish-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .dish-card:hover .dish-img img {
-            transform: scale(1.1);
-        }
-        
-        .dish-content {
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .dish-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .dish-content p {
-            color: #777;
-            margin-bottom: 15px;
-        }
-        
-        .price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ff6b35;
-            margin-bottom: 15px;
-        }
-        
-        /* Seção de App */
-        .app {
-            padding: 80px 0;
-            background: linear-gradient(to right, #ff6b35, #ff8e35);
-            color: white;
-        }
-        
-        .app-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .app-content {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px;
-        }
-        
-        .app-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .app-content p {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        .app-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .app-btn {
-            display: flex;
-            align-items: center;
-            background: white;
-            color: #ff6b35;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .app-btn:hover {
-            background: #f5f5f5;
-            transform: translateY(-3px);
-        }
-        
-        .app-btn i {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-        
-        .app-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        
-        .app-image img {
-            max-width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Seção de Depoimentos */
-        .testimonials {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .testimonials-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            display: none;
-        }
-        
-        .testimonial.active {
-            display: block;
-            animation: fadeIn 1s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .testimonial img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid #ff6b35;
-        }
-        
-        .testimonial p {
-            font-style: italic;
-            margin-bottom: 15px;
-            color: #555;
-        }
-        
-        .testimonial .client-name {
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .testimonial-nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .testimonial-dot {
-            width: 12px;
-            height: 12px;
-            background: #ddd;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .testimonial-dot.active {
-            background: #ff6b35;
-        }
-        
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #ff6b35;
-        }
-        
-        .footer-section p, .footer-section li {
-            margin-bottom: 10px;
-            color: #bbb;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-section a:hover {
-            color: #ff6b35;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: #444;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background: #ff6b35;
-            color: white;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            nav ul {
-                position: absolute;
-                flex-direction: column;
-                background: #ff6b35;
-                width: 100%;
-                top: 100%;
-                left: 0;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                display: none;
-            }
-            
-            nav ul.show {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 10px 0;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .app-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .app-buttons {
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menu — Restaurante Exemplo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0d0d0d;
+      --card:#1a1a1a;
+      --accent:#e63946;
+      --muted:#aaa;
+      --radius:14px;
+      --maxw:1100px;
+      --gap:20px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:#f5f5f5;
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{width:100%;max-width:var(--maxw)}
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:24px;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:64px;height:64px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#ff7b54);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:700;font-size:20px;
+      box-shadow:0 6px 18px rgba(230,57,70,0.4);
+    }
+
+    h1{font-size:1.5rem;margin:0}
+    p.tag{margin:0;color:var(--muted);font-size:0.95rem}
+
+    .meta{display:flex;gap:14px;align-items:center}
+    .btn-print{background:var(--accent);border:none;padding:8px 14px;border-radius:10px;cursor:pointer;color:#fff;font-weight:600;transition:0.3s}
+    .btn-print:hover{background:#ff5252}
+
+    main{display:grid;grid-template-columns:1fr 350px;gap:var(--gap);align-items:start}
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 24px rgba(0,0,0,0.5);
+    }
+
+    .menu-intro{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+    .hero-thumb{width:84px;height:84px;border-radius:10px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:22px}
+
+    .categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+    .category{padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);font-weight:600;color:#fff;font-size:0.95rem;text-align:center}
+
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}
+    .section-title h2{margin:0;font-size:1.1rem;color:#fff}
+    .section-title span{color:var(--muted);font-size:0.9rem}
+
+    .items{display:grid;gap:14px}
+    .menu-item{
+      display:flex;justify-content:space-between;gap:12px;padding:14px;border-radius:12px;align-items:flex-start;
+      background:rgba(255,255,255,0.02);
+      transition:0.3s;
+    }
+    .menu-item:hover{background:rgba(255,255,255,0.08)}
+    .menu-item h3{margin:0;font-size:1rem;color:#fff}
+    .menu-item p{margin:6px 0 0;color:var(--muted);font-size:0.9rem}
+    .price{font-weight:700;color:var(--accent);font-size:1rem}
+
+    aside .card{position:sticky;top:32px}
+    .special{background:linear-gradient(135deg,rgba(230,57,70,0.2),rgba(255,255,255,0.05));padding:14px;border-radius:10px;margin-bottom:14px}
+    .contact{display:flex;flex-direction:column;gap:8px}
+    .contact .line{display:flex;align-items:center;gap:8px;color:#ddd}
+
+    footer{margin-top:20px;text-align:center;color:var(--muted);font-size:0.9rem}
+
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      aside .card{position:static}
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
+  <div class="wrap">
     <header>
-        <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-                <span>SaborExpress</span>
-            </div>
-            
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            
-            <nav>
-                <ul id="navMenu">
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#services">Serviços</a></li>
-                    <li><a href="#dishes">Pratos</a></li>
-                    <li><a href="#app">App</a></li>
-                    <li><a href="#testimonials">Avaliações</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
+      <div class="brand">
+        <div class="logo">RE</div>
+        <div>
+          <h1>Restaurante Exemplo</h1>
+          <p class="tag">Sabores únicos • Ambiente sofisticado</p>
         </div>
+      </div>
+
+      <div class="meta">
+        <button class="btn-print" onclick="window.print()">Imprimir</button>
+        <div style="text-align:right; font-size:0.9rem; color:var(--muted)">
+          <div>Aberto: 11:00 — 23:00</div>
+          <div>Telefone: (+244) 900 000 000</div>
+        </div>
+      </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Sabores que entregam felicidade</h1>
-            <p>Desfrute dos melhores pratos da cidade no conforto da sua casa. Entregas rápidas e sabor inesquecível!</p>
-            <a href="#dishes" class="btn">Fazer Pedido</a>
-        </div>
-    </section>
+    <main>
+      <section>
+        <div class="card">
+          <div class="menu-intro">
+            <div class="hero-thumb">🍷</div>
+            <div>
+              <div style="font-weight:700;color:#fff">Cardápio da Casa</div>
+              <div style="color:var(--muted); font-size:0.95rem">Pratos preparados com excelência e sofisticação.</div>
+            </div>
+          </div>
 
-    <!-- Serviços Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nossos Serviços</h2>
-                <p>Oferecemos uma variedade de serviços para satisfazer seu paladar e conveniência</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Delivery Rápido">
-                    </div>
-                    <div class="service-content">
-                        <h3>Delivery Rápido</h3>
-                        <p>Entregas em até 30 minutos garantidas ou seu dinheiro de volta. Atendemos toda a região metropolitana.</p>
-                        <a href="#" class="btn">Saiba Mais</a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Comida Premium">
-                    </div>
-                    <div class="service-content">
-                        <h3>Comida Premium</h3>
-                        <p>Pratos preparados por chefs renomados com ingredientes selecionados da mais alta qualidade.</p>
-                        <a href="#" class="btn">Saiba Mais</a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Retirada no Local">
-                    </div>
-                    <div class="service-content">
-                        <h3>Retirada no Local</h3>
-                        <p>Prefere retirar pessoalmente? Temos um ambiente aconchegante e sistema de retirada rápida.</p>
-                        <a href="#" class="btn">Saiba Mais</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+          <div class="categories">
+            <div class="category">Entradas</div>
+            <div class="category">Pratos</div>
+            <div class="category">Sobremesas</div>
+            <div class="category">Bebidas</div>
+            <div class="category">Vegetariano</div>
+            <div class="category">Kids</div>
+          </div>
 
-    <!-- Pratos Section -->
-    <section class="dishes" id="dishes">
-        <div class="container">
-            <div class="section-title">
-                <h2>Pratos Populares</h2>
-                <p>Os queridinhos dos nossos clientes. Experimente essas delícias!</p>
-            </div>
-            
-            <div class="dishes-grid">
-                <div class="dish-card">
-                    <div class="dish-img">
-                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hambúrguer Gourmet">
-                    </div>
-                    <div class="dish-content">
-                        <h3>Hambúrguer Gourmet</h3>
-                        <p>Pão artesanal, blend 180g, queijo cheddar, bacon e molho especial.</p>
-                        <div class="price">R$ 29,90</div>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-                
-                <div class="dish-card">
-                    <div class="dish-img">
-                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pizza Margherita">
-                    </div>
-                    <div class="dish-content">
-                        <h3>Pizza Margherita</h3>
-                        <p>Massa fina, molho de tomate, muçarela de búfala, manjericão fresco.</p>
-                        <div class="price">R$ 39,90</div>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-                
-                <div class="dish-card">
-                    <div class="dish-img">
-                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salada Caesar">
-                    </div>
-                    <div class="dish-content">
-                        <h3>Salada Caesar</h3>
-                        <p>Alface romana, croutons, parmesão e nosso famoso molho caesar.</p>
-                        <div class="price">R$ 22,90</div>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-                
-                <div class="dish-card">
-                    <div class="dish-img">
-                        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sushi Combinado">
-                    </div>
-                    <div class="dish-content">
-                        <h3>Sushi Combinado</h3>
-                        <p>Variedade de 30 peças com os melhores cortes de salmão e atum.</p>
-                        <div class="price">R$ 59,90</div>
-                        <a href="#" class="btn">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+          <div class="section-title">
+            <h2>Entradas</h2>
+            <span>Para abrir o apetite</span>
+          </div>
 
-    <!-- App Section -->
-    <section class="app" id="app">
-        <div class="container app-container">
-            <div class="app-content">
-                <h2>Baixe nosso app</h2>
-                <p>Faça pedidos, acompanhe em tempo real e ganhe descontos exclusivos com nosso programa de fidelidade.</p>
-                <div class="app-buttons">
-                    <a href="#" class="app-btn">
-                        <i class="fab fa-google-play"></i>
-                        <span>Google Play</span>
-                    </a>
-                    <a href="#" class="app-btn">
-                        <i class="fab fa-apple"></i>
-                        <span>App Store</span>
-                    </a>
-                </div>
+          <div class="items">
+            <div class="menu-item">
+              <div class="left">
+                <h3>Bruschetta Clássica</h3>
+                <p>Pão italiano com tomate fresco, manjericão e azeite.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 1.500</div>
+              </div>
             </div>
-            <div class="app-image">
-                <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="App SaborExpress">
+            <div class="menu-item">
+              <div class="left">
+                <h3>Salada Caprese</h3>
+                <p>Mussarela fresca, tomate e pesto de manjericão.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 2.000</div>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Avaliações de Clientes</h2>
-                <p>Veja o que nossos clientes estão falando sobre nossos serviços</p>
-            </div>
-            
-            <div class="testimonials-container">
-                <div class="testimonial active">
-                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Cliente 1">
-                    <p>"Já experimentei vários delivery, mas o SaborExpress é incomparável! Comida deliciosa e entrega super rápida."</p>
-                    <div class="client-name">Maria Silva</div>
-                </div>
-                
-                <div class="testimonial">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente 2">
-                    <p>"Adoro a variedade de pratos. Sempre peço nas reuniões de família e todo mundo ama. Recomendo!"</p>
-                    <div class="client-name">João Santos</div>
-                </div>
-                
-                <div class="testimonial">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente 3">
-                    <p>"O aplicativo é muito intuitivo e prático. Consigo fazer meus pedidos em poucos cliques e acompanhar em tempo real."</p>
-                    <div class="client-name">Ana Costa</div>
-                </div>
-                
-                <div class="testimonial-nav">
-                    <div class="testimonial-dot active" data-index="0"></div>
-                    <div class="testimonial-dot" data-index="1"></div>
-                    <div class="testimonial-dot" data-index="2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+          <div class="section-title">
+            <h2>Pratos Principais</h2>
+            <span>O coração do cardápio</span>
+          </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>SaborExpress</h3>
-                    <p>Entregando sabor e qualidade desde 2015. Nossa missão é proporcionar experiências gastronômicas memoráveis no conforto da sua casa.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Links Rápidos</h3>
-                    <ul>
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#services">Serviços</a></li>
-                        <li><a href="#dishes">Pratos</a></li>
-                        <li><a href="#app">App</a></li>
-                        <li><a href="#testimonials">Avaliações</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234, Centro</p>
-                    <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
-                    <p><i class="fas fa-envelope"></i> contato@saborexpress.com</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Horário de Funcionamento</h3>
-                    <p>Segunda a Sexta: 11h às 23h</p>
-                    <p>Sábado e Domingo: 11h à 00h</p>
-                    <p>Feriados: 11h à 00h</p>
-                </div>
+          <div class="items">
+            <div class="menu-item">
+              <div class="left">
+                <h3>Risoto de Camarão</h3>
+                <p>Risoto cremoso com camarões frescos e toque de limão siciliano.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 6.500</div>
+              </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 SaborExpress - Todos os direitos reservados</p>
+            <div class="menu-item">
+              <div class="left">
+                <h3>Picanha Grelhada</h3>
+                <p>Picanha suculenta acompanhada de farofa e vinagrete.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 7.200</div>
+              </div>
             </div>
-        </div>
-    </footer>
+          </div>
 
-    <script>
-        // Menu Mobile Toggle
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('show');
-        });
-        
-        // Testimonials Slider
-        const testimonials = document.querySelectorAll('.testimonial');
-        const dots = document.querySelectorAll('.testimonial-dot');
-        let currentTestimonial = 0;
-        
-        function showTestimonial(index) {
-            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            testimonials[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentTestimonial = index;
-        }
-        
-        dots.forEach(dot => {
-            dot.addEventListener('click', function() {
-                const index = parseInt(this.getAttribute('data-index'));
-                showTestimonial(index);
-            });
-        });
-        
-        // Auto-rotate testimonials
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }, 5000);
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    document.getElementById('navMenu').classList.remove('show');
-                }
-            });
-        });
-    </script>
+          <div class="section-title">
+            <h2>Sobremesas</h2>
+            <span>O final perfeito</span>
+          </div>
+
+          <div class="items">
+            <div class="menu-item">
+              <div class="left">
+                <h3>Tiramisù</h3>
+                <p>Clássico italiano com café e cacau.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 2.200</div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="left">
+                <h3>Petit Gâteau</h3>
+                <p>Bolo de chocolate com casca crocante e recheio cremoso, servido com sorvete.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 2.800</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <h2>Bebidas</h2>
+            <span>Refresque-se</span>
+          </div>
+
+          <div class="items">
+            <div class="menu-item">
+              <div class="left">
+                <h3>Vinho da Casa (taça)</h3>
+                <p>Seleção especial de vinhos tinto e branco.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 2.500</div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="left">
+                <h3>Suco Natural</h3>
+                <p>Laranja, manga ou maracujá — 300ml.</p>
+              </div>
+              <div class="right">
+                <div class="price">AOA 1.000</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer>
+          <div>Endereço: Rua Exemplo, nº 123 — Luanda</div>
+          <div style="margin-top:6px">Aberto todos os dias • Reservas pelo telefone</div>
+        </footer>
+      </section>
+
+      <aside>
+        <div class="card">
+          <div class="special">
+            <strong>Especial do Dia</strong>
+            <div style="margin-top:8px">Bacalhau à Brás — edição limitada.</div>
+            <div style="margin-top:10px;font-weight:700;color:var(--accent)">AOA 8.000</div>
+          </div>
+
+          <div style="margin-bottom:14px">
+            <div style="font-weight:700;margin-bottom:8px">Horário</div>
+            <div style="color:var(--muted)">Seg — Sex: 11:00 — 23:00<br> Sáb — Dom: 12:00 — 00:00</div>
+          </div>
+
+          <div style="margin-bottom:14px">
+            <div style="font-weight:700;margin-bottom:8px">Contato</div>
+            <div class="contact">
+              <div class="line">📞 (+244) 900 000 000</div>
+              <div class="line">📧 reservas@restaurante.ex</div>
+              <div class="line">📍 @restaurante_ex (Instagram)</div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-weight:700;margin-bottom:8px">Notas</div>
+            <div style="color:var(--muted);font-size:0.92rem">Todos os preços incluem IVA. Informe o garçom sobre alergias. Aceitamos cartões e multicaixa.</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
 </body>
 </html>
